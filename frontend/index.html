@@ -14,12 +14,6 @@
                 <i class="fab fa-twitter"></i>
                 <h1>Flare Twitter Verification</h1>
             </div>
-            <div class="wallet-status">
-                <button id="headerConnectWallet" class="header-connect-btn">
-                    <i class="fas fa-wallet"></i>
-                    <span id="walletStatusText">Connect Wallet</span>
-                </button>
-            </div>
             <p class="subtitle">Connect your Twitter account to verify your identity on the Flare blockchain</p>
         </header>
 
@@ -47,18 +41,6 @@
         <div id="step1" class="step-content active">
             <h2>Choose Verification Method</h2>
             
-            <div class="wallet-connection-required" id="walletRequired" style="display: none;">
-                <div class="warning-card">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Wallet Connection Required</h3>
-                    <p>Please connect your MetaMask wallet to continue with the verification process.</p>
-                    <button id="connectWalletInline" class="connect-btn-inline">
-                        <i class="fas fa-wallet"></i>
-                        Connect MetaMask Wallet
-                    </button>
-                </div>
-            </div>
-            
             <div id="methodSelection" class="method-selection">
                 <div class="method-cards">
                     <div class="method-card recommended" onclick="selectMethod('tweet')">
@@ -77,11 +59,10 @@
 
                 <div class="wallet-section">
                     <label for="walletAddress">Wallet Address</label>
-                    <input type="text" id="walletAddress" placeholder="Connect wallet to auto-fill" readonly>
-                    <button id="connectWallet" class="connect-btn">
-                        <i class="fas fa-wallet"></i>
-                        Connect Wallet
-                    </button>
+                    <input type="text" id="walletAddress" placeholder="Enter your wallet address (0x...)" maxlength="42">
+                    <div class="wallet-info">
+                        <p><i class="fas fa-info-circle"></i> Enter your Flare wallet address that you want to verify</p>
+                    </div>
                 </div>
             </div>
         </div>

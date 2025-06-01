@@ -325,27 +325,34 @@ body {
     font-size: 1rem;
     margin-bottom: 15px;
     background: white;
+    transition: border-color 0.3s ease;
 }
 
-.connect-btn {
-    background: linear-gradient(45deg, #1DA1F2, #667eea);
-    color: white;
-    border: none;
-    padding: 12px 24px;
+.wallet-section input:focus {
+    outline: none;
+    border-color: #1DA1F2;
+    box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
+}
+
+.wallet-info {
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border: 1px solid #1DA1F2;
     border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.wallet-info p {
+    margin: 0;
+    color: #1976d2;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    margin: 0 auto;
+    gap: 8px;
 }
 
-.connect-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(29, 161, 242, 0.3);
+.wallet-info i {
+    color: #1DA1F2;
 }
 
 /* Verification Methods */
