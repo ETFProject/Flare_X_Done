@@ -261,15 +261,88 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script>
-        // Fallback for ethers.js
-        if (typeof ethers === 'undefined') {
-            console.log('Loading ethers.js fallback...');
-            document.write('<script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"><\/script>');
-        }
+        // Robust ethers.js loading with fallback
+        (function() {
+            function loadScript(src) {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+            
+            async function loadEthers() {
+                try {
+                    console.log('Loading ethers.js from primary CDN...');
+                    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js');
+                    
+                    // Check if ethers is available
+                    if (typeof ethers !== 'undefined') {
+                        console.log('✅ Ethers.js loaded from primary CDN');
+                        return;
+                    }
+                    throw new Error('Ethers not available after primary load');
+                } catch (error) {
+                    console.log('Primary CDN failed, trying fallback...');
+                    try {
+                        await loadScript('https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js');
+                        if (typeof ethers !== 'undefined') {
+                            console.log('✅ Ethers.js loaded from fallback CDN');
+                            return;
+                        }
+                        throw new Error('Ethers not available after fallback load');
+                    } catch (fallbackError) {
+                        console.log('Fallback failed, trying jsdelivr...');
+                        await loadScript('https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js');
+                        if (typeof ethers !== 'undefined') {
+                            console.log('✅ Ethers.js loaded from jsdelivr CDN');
+                            return;
+                        }
+                        throw new Error('All ethers.js CDNs failed to load');
+                    }
+                }
+            }
+            
+            // Load ethers first, then load other scripts
+            loadEthers().then(() => {
+                return loadScript('contract-abi.js');
+            }).then(() => {
+                return loadScript('app.js');
+            }).catch(error => {
+                console.error('❌ Failed to load required scripts:', error);
+                document.body.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #f8d7da;
+                        color: #721c24;
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #f5c6cb;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                        max-width: 400px;
+                    ">
+                        <h3>⚠️ Loading Error</h3>
+                        <p>Failed to load required libraries. Please check your internet connection and refresh the page.</p>
+                        <button onclick="window.location.reload()" style="
+                            background: #721c24;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            margin-top: 10px;
+                        ">Refresh Page</button>
+                    </div>
+                `;
+            });
+        })();
     </script>
-    <script src="contract-abi.js"></script>
-    <script src="app.js"></script>
 </body>
 </html> 
