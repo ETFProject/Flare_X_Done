@@ -261,7 +261,14 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script>
+        // Fallback for ethers.js
+        if (typeof ethers === 'undefined') {
+            console.log('Loading ethers.js fallback...');
+            document.write('<script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"><\/script>');
+        }
+    </script>
     <script src="contract-abi.js"></script>
     <script src="app.js"></script>
 </body>

@@ -6,9 +6,45 @@ let contract = null;
 let userAccount = null;
 let verificationRequestId = null;
 
+// Wait for ethers to be available
+function waitForEthers() {
+    return new Promise((resolve, reject) => {
+        if (typeof ethers !== 'undefined') {
+            resolve();
+            return;
+        }
+        
+        let attempts = 0;
+        const maxAttempts = 50; // 5 seconds max
+        
+        const checkEthers = () => {
+            attempts++;
+            if (typeof ethers !== 'undefined') {
+                resolve();
+            } else if (attempts >= maxAttempts) {
+                reject(new Error('Ethers.js library failed to load'));
+            } else {
+                setTimeout(checkEthers, 100);
+            }
+        };
+        
+        checkEthers();
+    });
+}
+
 // Initialize the app
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🚀 Flare Twitter Verification DApp loaded');
+    
+    try {
+        // Wait for ethers to be available
+        await waitForEthers();
+        console.log('✅ Ethers.js loaded successfully');
+    } catch (error) {
+        console.error('❌ Failed to load Ethers.js:', error);
+        showNotification('Failed to load required libraries. Please refresh the page.', 'error');
+        return;
+    }
     
     // Check if MetaMask is installed
     if (typeof window.ethereum !== 'undefined') {
@@ -87,6 +123,10 @@ async function connectWallet() {
             throw new Error('MetaMask is not installed');
         }
         
+        if (typeof ethers === 'undefined') {
+            throw new Error('Ethers.js library is not loaded. Please refresh the page.');
+        }
+        
         // Request account access
         const accounts = await window.ethereum.request({
             method: 'eth_requestAccounts'
@@ -125,6 +165,8 @@ async function connectWallet() {
         
         if (error.code === 4001) {
             showNotification('Please connect your wallet to continue', 'warning');
+        } else if (error.message.includes('Ethers.js')) {
+            showNotification('Library loading error. Please refresh the page and try again.', 'error');
         } else {
             showNotification('Error connecting wallet: ' + error.message, 'error');
         }
