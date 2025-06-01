@@ -10,44 +10,90 @@ let verificationRequestId = null;
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🚀 Flare Twitter Verification DApp loaded');
     
+    // Add a small delay to ensure everything is ready
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     // Check if MetaMask is installed
     if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         
         // Check if already connected
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        if (accounts.length > 0) {
-            await connectWallet();
-        } else {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                await connectWallet();
+            } else {
+                showWalletRequired();
+            }
+        } catch (error) {
+            console.error('Error checking existing accounts:', error);
             showWalletRequired();
         }
     } else {
-        alert('Please install MetaMask to use this application!');
+        console.warn('MetaMask not detected');
+        showNotification('Please install MetaMask to use this application!', 'error');
         showWalletRequired();
     }
     
-    // Setup event listeners
-    setupEventListeners();
+    // Setup event listeners with a small delay
+    setTimeout(() => {
+        setupEventListeners();
+    }, 200);
     
     // Update network status
     updateNetworkStatus();
+    
+    console.log('🎯 App initialization complete');
 });
 
 // Setup event listeners
 function setupEventListeners() {
-    // Connect wallet buttons
-    document.getElementById('connectWallet').addEventListener('click', connectWallet);
-    document.getElementById('headerConnectWallet').addEventListener('click', connectWallet);
-    document.getElementById('connectWalletInline').addEventListener('click', connectWallet);
+    console.log('Setting up event listeners...');
+    
+    // Connect wallet buttons with error handling
+    const connectButtons = [
+        'connectWallet',
+        'headerConnectWallet', 
+        'connectWalletInline'
+    ];
+    
+    connectButtons.forEach(buttonId => {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            console.log(`✅ Found button: ${buttonId}`);
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log(`🔘 ${buttonId} clicked`);
+                connectWallet();
+            });
+        } else {
+            console.warn(`⚠️ Button not found: ${buttonId}`);
+        }
+    });
     
     // Start verification button
-    document.getElementById('startVerification').addEventListener('click', startVerification);
+    const startButton = document.getElementById('startVerification');
+    if (startButton) {
+        console.log('✅ Found startVerification button');
+        startButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('🔘 Start verification clicked');
+            startVerification();
+        });
+    } else {
+        console.warn('⚠️ Start verification button not found');
+    }
     
     // Account change handler
     if (window.ethereum) {
+        console.log('✅ Setting up MetaMask event handlers');
         window.ethereum.on('accountsChanged', handleAccountsChanged);
         window.ethereum.on('chainChanged', handleChainChanged);
+    } else {
+        console.warn('⚠️ MetaMask not detected for event handlers');
     }
+    
+    console.log('✅ Event listeners setup complete');
 }
 
 // Show wallet connection required warning
@@ -81,33 +127,80 @@ function updateWalletStatus(connected, account = null) {
 // Connect wallet
 async function connectWallet() {
     try {
-        console.log('Connecting to MetaMask...');
+        console.log('🔄 Starting wallet connection process...');
+        console.log('MetaMask available:', typeof window.ethereum !== 'undefined');
+        console.log('Ethers available:', typeof ethers !== 'undefined');
         
         if (typeof window.ethereum === 'undefined') {
-            throw new Error('MetaMask is not installed');
+            const error = 'MetaMask is not installed. Please install MetaMask to continue.';
+            console.error('❌', error);
+            showNotification(error, 'error');
+            return;
         }
         
-        // Request account access
-        const accounts = await window.ethereum.request({
-            method: 'eth_requestAccounts'
-        });
+        if (typeof ethers === 'undefined') {
+            const error = 'Ethers.js library is not loaded. Please refresh the page.';
+            console.error('❌', error);
+            showNotification(error, 'error');
+            return;
+        }
+        
+        console.log('📞 Requesting account access from MetaMask...');
+        
+        // Request account access with better error handling
+        let accounts;
+        try {
+            accounts = await window.ethereum.request({
+                method: 'eth_requestAccounts'
+            });
+        } catch (requestError) {
+            console.error('❌ MetaMask request failed:', requestError);
+            
+            if (requestError.code === 4001) {
+                showNotification('Connection request was rejected. Please approve the connection in MetaMask.', 'warning');
+            } else if (requestError.code === -32002) {
+                showNotification('MetaMask is already processing a request. Please check MetaMask.', 'info');
+            } else {
+                showNotification('Failed to connect to MetaMask: ' + requestError.message, 'error');
+            }
+            return;
+        }
+        
+        if (!accounts || accounts.length === 0) {
+            const error = 'No accounts found. Please make sure MetaMask is unlocked.';
+            console.error('❌', error);
+            showNotification(error, 'error');
+            return;
+        }
         
         userAccount = accounts[0];
-        console.log('Connected account:', userAccount);
+        console.log('✅ Connected to account:', userAccount);
         
         // Initialize ethers provider
+        console.log('🔗 Initializing Web3 provider...');
         web3Provider = new ethers.providers.Web3Provider(window.ethereum);
         
         // Check and switch to Coston2 network
+        console.log('🌐 Checking network...');
         await switchToCoston2();
         
         // Initialize contract
+        console.log('📋 Initializing contract...');
         contract = new ethers.Contract(CONTRACT_CONFIG.address, CONTRACT_ABI, web3Provider.getSigner());
         
         // Update UI
-        document.getElementById('walletAddress').value = userAccount;
-        document.getElementById('connectWallet').innerHTML = '<i class="fas fa-check"></i> Connected';
-        document.getElementById('connectWallet').style.background = '#4CAF50';
+        console.log('🎨 Updating UI...');
+        const walletAddressInput = document.getElementById('walletAddress');
+        const connectButton = document.getElementById('connectWallet');
+        
+        if (walletAddressInput) {
+            walletAddressInput.value = userAccount;
+        }
+        
+        if (connectButton) {
+            connectButton.innerHTML = '<i class="fas fa-check"></i> Connected';
+            connectButton.style.background = '#4CAF50';
+        }
         
         // Update header status
         updateWalletStatus(true, userAccount);
@@ -116,19 +209,27 @@ async function connectWallet() {
         updateTweetContent();
         
         // Check if user is already verified
+        console.log('✔️ Checking verification status...');
         await checkVerificationStatus();
         
-        console.log('✅ Wallet connected successfully');
+        console.log('🎉 Wallet connected successfully!');
+        showNotification('Wallet connected successfully!', 'success');
         
     } catch (error) {
-        console.error('❌ Error connecting wallet:', error);
+        console.error('❌ Unexpected error in connectWallet:', error);
+        console.error('Error stack:', error.stack);
         
-        if (error.code === 4001) {
-            showNotification('Please connect your wallet to continue', 'warning');
-        } else {
-            showNotification('Error connecting wallet: ' + error.message, 'error');
+        let errorMessage = 'An unexpected error occurred: ' + error.message;
+        
+        if (error.message.includes('insufficient funds')) {
+            errorMessage = 'Insufficient funds in wallet.';
+        } else if (error.message.includes('network')) {
+            errorMessage = 'Network connection error. Please check your internet connection.';
+        } else if (error.message.includes('rejected')) {
+            errorMessage = 'Transaction was rejected.';
         }
         
+        showNotification(errorMessage, 'error');
         updateWalletStatus(false);
     }
 }
