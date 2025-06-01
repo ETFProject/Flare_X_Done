@@ -1,0 +1,29 @@
+{
+  "name": "flare-x-dapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network coston2",
+    "deploy:local": "hardhat run scripts/deploy.js",
+    "test-app": "hardhat run scripts/test-verification.js --network coston2",
+    "test-verification": "hardhat run scripts/request-verification.js --network coston2",
+    "demo": "hardhat run scripts/live-demo.js --network coston2",
+    "node": "hardhat node",
+    "clean": "hardhat clean"
+  },
+  "keywords": ["flare", "fdc", "twitter", "verification", "web3"],
+  "author": "",
+  "license": "ISC",
+  "description": "Twitter verification dapp using Flare FDC",
+  "devDependencies": {
+    "hardhat": "^2.24.1",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
+  },
+  "dependencies": {
+    "@flarenetwork/flare-periphery-contracts": "^0.1.26",
+    "@openzeppelin/contracts": "^5.3.0",
+    "dotenv": "^16.5.0"
+  }
+}

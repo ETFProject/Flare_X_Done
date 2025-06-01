@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flare Twitter Verification</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fab fa-twitter"></i>
+                <h1>Flare Twitter Verification</h1>
+            </div>
+            <p class="subtitle">Connect your Twitter account to verify your identity on the Flare blockchain</p>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Choose Method</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Verify</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Process</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Complete</div>
+            </div>
+        </div>
+
+        <!-- Step 1: Choose Method -->
+        <div id="step1" class="step-content active">
+            <h2>Choose Verification Method</h2>
+            
+            <div class="method-cards">
+                <div class="method-card recommended" onclick="selectMethod('tweet')">
+                    <div class="method-icon">🐦</div>
+                    <h3>Tweet Verification</h3>
+                    <p class="recommended-badge">Recommended</p>
+                    <p>Post a tweet with your wallet address. This method is quick and secure.</p>
+                </div>
+                
+                <div class="method-card" onclick="selectMethod('bio')">
+                    <div class="method-icon">🔐</div>
+                    <h3>Bio Verification</h3>
+                    <p>Add a verification code to your Twitter bio for identity confirmation.</p>
+                </div>
+            </div>
+
+            <div class="wallet-section">
+                <label for="walletAddress">Wallet Address</label>
+                <input type="text" id="walletAddress" placeholder="Connect wallet to auto-fill" readonly>
+                <button id="connectWallet" class="connect-btn">
+                    <i class="fas fa-wallet"></i>
+                    Connect Wallet
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Verify -->
+        <div id="step2" class="step-content">
+            <h2>Verify Your Twitter Account</h2>
+            
+            <div id="tweetMethod" class="verification-method">
+                <div class="instruction-card">
+                    <h3>📝 Step 1: Create a Tweet</h3>
+                    <p>Post this exact tweet to verify your wallet address:</p>
+                    <div class="tweet-template">
+                        <div class="tweet-content" id="tweetContent">
+                            Verifying my wallet [WALLET_ADDRESS] on Flare Network #FlareNetwork #Web3Verification
+                        </div>
+                        <button class="copy-btn" onclick="copyTweet()">
+                            <i class="fas fa-copy"></i> Copy Tweet
+                        </button>
+                    </div>
+                    <a href="https://twitter.com/intent/tweet" target="_blank" class="twitter-btn">
+                        <i class="fab fa-twitter"></i> Open Twitter
+                    </a>
+                </div>
+
+                <div class="input-section">
+                    <label for="tweetUrl">🔗 Step 2: Paste Tweet URL</label>
+                    <input type="text" id="tweetUrl" placeholder="https://twitter.com/username/status/1234567890">
+                    
+                    <label for="twitterHandle">👤 Step 3: Your Twitter Handle</label>
+                    <input type="text" id="twitterHandle" placeholder="@username">
+                </div>
+            </div>
+
+            <div id="bioMethod" class="verification-method" style="display: none;">
+                <div class="instruction-card">
+                    <h3>🔐 Bio Verification</h3>
+                    <p>Add this verification code to your Twitter bio:</p>
+                    <div class="verification-code">
+                        <code id="bioCode">flare-verify:[WALLET_ADDRESS]</code>
+                        <button class="copy-btn" onclick="copyBioCode()">
+                            <i class="fas fa-copy"></i> Copy Code
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="input-section">
+                    <label for="twitterHandleBio">👤 Your Twitter Handle</label>
+                    <input type="text" id="twitterHandleBio" placeholder="@username">
+                </div>
+            </div>
+
+            <button id="startVerification" class="verify-btn">
+                <i class="fas fa-shield-alt"></i>
+                Start Verification
+            </button>
+        </div>
+
+        <!-- Step 3: Process -->
+        <div id="step3" class="step-content">
+            <h2>Processing Verification</h2>
+            
+            <div class="processing-container">
+                <div class="loading-spinner"></div>
+                <h3>Submitting to Flare Data Connector...</h3>
+                <p>Please wait while we verify your Twitter account on the blockchain.</p>
+                
+                <div class="process-steps">
+                    <div class="process-step" id="step-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Submitting verification request</span>
+                        <div class="step-status pending"></div>
+                    </div>
+                    <div class="process-step" id="step-fdc">
+                        <i class="fas fa-search"></i>
+                        <span>FDC processing Twitter data</span>
+                        <div class="step-status pending"></div>
+                    </div>
+                    <div class="process-step" id="step-proof">
+                        <i class="fas fa-certificate"></i>
+                        <span>Generating cryptographic proof</span>
+                        <div class="step-status pending"></div>
+                    </div>
+                    <div class="process-step" id="step-complete">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verification complete</span>
+                        <div class="step-status pending"></div>
+                    </div>
+                </div>
+
+                <div class="transaction-info" id="transactionInfo" style="display: none;">
+                    <h4>Transaction Details</h4>
+                    <p><strong>Transaction Hash:</strong> <span id="txHash"></span></p>
+                    <p><strong>Request ID:</strong> <span id="requestId"></span></p>
+                    <a id="explorerLink" href="#" target="_blank">View on Explorer</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Complete -->
+        <div id="step4" class="step-content">
+            <h2>Verification Complete!</h2>
+            
+            <div class="success-container">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h3>🎉 Successfully Verified!</h3>
+                <p>Your Twitter account has been verified and recorded on the Flare blockchain.</p>
+                
+                <div class="verification-details">
+                    <div class="detail-item">
+                        <label>Wallet Address:</label>
+                        <span id="verifiedWallet"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Twitter Account:</label>
+                        <span id="verifiedTwitter"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Twitter ID:</label>
+                        <span id="verifiedTwitterId"></span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Verification Time:</label>
+                        <span id="verificationTime"></span>
+                    </div>
+                </div>
+
+                <div class="blockchain-verification">
+                    <h4>🔗 Blockchain Verification</h4>
+                    <p>Your verification has been recorded on the Flare blockchain, providing secure and immutable proof of your Twitter identity.</p>
+                    <div class="blockchain-links">
+                        <a id="contractLink" href="#" target="_blank" class="blockchain-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Contract
+                        </a>
+                        <a id="transactionLink" href="#" target="_blank" class="blockchain-link">
+                            <i class="fas fa-receipt"></i>
+                            View Transaction
+                        </a>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="test-btn" onclick="testRestrictedFunction()">
+                        <i class="fas fa-play"></i>
+                        Test Restricted Function
+                    </button>
+                    <button class="restart-btn" onclick="restartVerification()">
+                        <i class="fas fa-redo"></i>
+                        Verify Another Account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Status -->
+        <div class="network-status">
+            <div class="network-info">
+                <span class="network-label">Network:</span>
+                <span class="network-name" id="networkName">Coston2 Testnet</span>
+                <div class="network-indicator" id="networkIndicator"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <strong>Flare Network</strong> FDC (Flare Data Connector)</p>
+            <div class="footer-links">
+                <a href="https://dev.flare.network/fdc/" target="_blank">FDC Documentation</a>
+                <a href="https://coston2-explorer.flare.network" target="_blank">Coston2 Explorer</a>
+                <a href="https://faucet.flare.network/coston2" target="_blank">C2FLR Faucet</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="contract-abi.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 

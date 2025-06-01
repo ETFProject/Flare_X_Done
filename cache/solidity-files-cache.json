@@ -1,0 +1,793 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Ericn\\flare-x-dapp\\contracts\\XVerification.sol": {
+      "lastModificationDate": 1748736400375,
+      "contentHash": "3ba23aaa5ad671bf5ba5e46b910bf626",
+      "sourceName": "contracts/XVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@flarenetwork/flare-periphery-contracts/coston2/IFdcHub.sol",
+        "@flarenetwork/flare-periphery-contracts/coston2/IFdcVerification.sol",
+        "@flarenetwork/flare-periphery-contracts/coston2/IWeb2Json.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "XVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1748734190506,
+      "contentHash": "d3c790edc9ccf808a17c5a6cd13614fd",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IFdcVerification.sol": {
+      "lastModificationDate": 1748734189416,
+      "contentHash": "0eda6328a21121fa83257c89ddac4265",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IFdcVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IAddressValidityVerification.sol",
+        "./IBalanceDecreasingTransactionVerification.sol",
+        "./IConfirmedBlockHeightExistsVerification.sol",
+        "./IEVMTransactionVerification.sol",
+        "./IPaymentVerification.sol",
+        "./IReferencedPaymentNonexistenceVerification.sol",
+        "./IWeb2JsonVerification.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IFdcVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IFdcHub.sol": {
+      "lastModificationDate": 1748734189403,
+      "contentHash": "01194fa0870a7ff35f0ee8e5c4286c42",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IFdcHub.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IFdcInflationConfigurations.sol",
+        "./IFdcRequestFeeConfigurations.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IFdcHub"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IWeb2Json.sol": {
+      "lastModificationDate": 1748734189877,
+      "contentHash": "545d61572e73d372477dfc186c227d6d",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IWeb2Json.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IWeb2Json"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
+      "lastModificationDate": 1748734190322,
+      "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IAddressValidityVerification.sol": {
+      "lastModificationDate": 1748734189299,
+      "contentHash": "ea388c5c5a35a334ae1cf7b0886695e0",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IAddressValidityVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IAddressValidity.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IAddressValidityVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IBalanceDecreasingTransactionVerification.sol": {
+      "lastModificationDate": 1748734189321,
+      "contentHash": "b6a0f84a4fa957b5925aa95a973423c4",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IBalanceDecreasingTransactionVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IBalanceDecreasingTransaction.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IBalanceDecreasingTransactionVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IPaymentVerification.sol": {
+      "lastModificationDate": 1748734189782,
+      "contentHash": "9a1d9f1f090e00c646ef8f5ba271fe0b",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IPaymentVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IPayment.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IPaymentVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IEVMTransactionVerification.sol": {
+      "lastModificationDate": 1748734189385,
+      "contentHash": "ebd293289dcfbf9fb800168e7f3f1e66",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IEVMTransactionVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IEVMTransaction.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IEVMTransactionVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IWeb2JsonVerification.sol": {
+      "lastModificationDate": 1748734189879,
+      "contentHash": "35710f76c2ad6d9c16bcb8c33d827f66",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IWeb2JsonVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IWeb2Json.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IWeb2JsonVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IReferencedPaymentNonexistenceVerification.sol": {
+      "lastModificationDate": 1748734189810,
+      "contentHash": "3d154f76b1a7ab38bb245e14d14e8c34",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IReferencedPaymentNonexistenceVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IReferencedPaymentNonexistence.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IReferencedPaymentNonexistenceVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IConfirmedBlockHeightExistsVerification.sol": {
+      "lastModificationDate": 1748734189347,
+      "contentHash": "ddf29d6fd671e7393d7a36fda6ff06e5",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IConfirmedBlockHeightExistsVerification.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IConfirmedBlockHeightExists.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IConfirmedBlockHeightExistsVerification"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IAddressValidity.sol": {
+      "lastModificationDate": 1748734189295,
+      "contentHash": "dc80a1768f9b2eec5d01bcbdbf6a75a3",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IAddressValidity.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IAddressValidity"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IBalanceDecreasingTransaction.sol": {
+      "lastModificationDate": 1748734189317,
+      "contentHash": "deae3a1d919e15820266987ed34558b9",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IBalanceDecreasingTransaction.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IBalanceDecreasingTransaction"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IPayment.sol": {
+      "lastModificationDate": 1748734189776,
+      "contentHash": "3387e523124247aabf032ca2b59e1c44",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IPayment.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IPayment"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IEVMTransaction.sol": {
+      "lastModificationDate": 1748734189380,
+      "contentHash": "fb2b51352a42caf7d84d143a5cef37f9",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IEVMTransaction.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IEVMTransaction"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IReferencedPaymentNonexistence.sol": {
+      "lastModificationDate": 1748734189806,
+      "contentHash": "81acac296932b60a6e8a0142831d514f",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IReferencedPaymentNonexistence.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IReferencedPaymentNonexistence"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IConfirmedBlockHeightExists.sol": {
+      "lastModificationDate": 1748734189343,
+      "contentHash": "93d757d8da7acd75bd3e2082bd0f2ef4",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IConfirmedBlockHeightExists.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IConfirmedBlockHeightExists"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IFdcRequestFeeConfigurations.sol": {
+      "lastModificationDate": 1748734189411,
+      "contentHash": "e19e0d27104a6347b6e0713a02517aa6",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IFdcRequestFeeConfigurations.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IFdcRequestFeeConfigurations"
+      ]
+    },
+    "C:\\Users\\Ericn\\flare-x-dapp\\node_modules\\@flarenetwork\\flare-periphery-contracts\\coston2\\IFdcInflationConfigurations.sol": {
+      "lastModificationDate": 1748734189407,
+      "contentHash": "ea471b044d8144c256da030de5853b89",
+      "sourceName": "@flarenetwork/flare-periphery-contracts/coston2/IFdcInflationConfigurations.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.6 <0.9"
+      ],
+      "artifacts": [
+        "IFdcInflationConfigurations"
+      ]
+    }
+  }
+}

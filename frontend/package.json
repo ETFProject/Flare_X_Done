@@ -1,0 +1,24 @@
+{
+  "name": "flare-twitter-verification-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Flare Twitter Verification DApp using FDC",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static build complete'",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "flare",
+    "twitter",
+    "verification",
+    "web3",
+    "blockchain",
+    "fdc",
+    "dapp"
+  ],
+  "author": "Flare Developer",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+} 
