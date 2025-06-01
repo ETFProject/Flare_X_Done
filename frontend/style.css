@@ -26,11 +26,7 @@ body {
 .header {
     text-align: center;
     margin-bottom: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    position: relative;
 }
 
 .logo {
@@ -38,28 +34,119 @@ body {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .logo i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #1DA1F2;
 }
 
 .logo h1 {
     font-size: 2.5rem;
+    color: #333;
+    margin: 0;
     font-weight: 700;
+}
+
+.wallet-status {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.header-connect-btn {
     background: linear-gradient(45deg, #1DA1F2, #667eea);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+
+.header-connect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+}
+
+.header-connect-btn.connected {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
 }
 
 .subtitle {
-    font-size: 1.1rem;
     color: #666;
-    max-width: 500px;
-    margin: 0 auto;
+    font-size: 1.1rem;
+    margin: 15px 0 0;
+    line-height: 1.5;
+}
+
+/* Wallet Connection Warning */
+.wallet-connection-required {
+    margin-bottom: 30px;
+}
+
+.warning-card {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 2px solid #f39c12;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.2);
+}
+
+.warning-card i {
+    font-size: 3rem;
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+.warning-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.warning-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.connect-btn-inline {
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.connect-btn-inline:hover {
+    background: linear-gradient(45deg, #e67e22, #d35400);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3);
+}
+
+.method-selection {
+    transition: opacity 0.3s ease;
+}
+
+.method-selection.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 /* Progress Steps */

@@ -18,9 +18,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         if (accounts.length > 0) {
             await connectWallet();
+        } else {
+            showWalletRequired();
         }
     } else {
         alert('Please install MetaMask to use this application!');
+        showWalletRequired();
     }
     
     // Setup event listeners
@@ -32,8 +35,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Setup event listeners
 function setupEventListeners() {
-    // Connect wallet button
+    // Connect wallet buttons
     document.getElementById('connectWallet').addEventListener('click', connectWallet);
+    document.getElementById('headerConnectWallet').addEventListener('click', connectWallet);
+    document.getElementById('connectWalletInline').addEventListener('click', connectWallet);
     
     // Start verification button
     document.getElementById('startVerification').addEventListener('click', startVerification);
@@ -42,6 +47,34 @@ function setupEventListeners() {
     if (window.ethereum) {
         window.ethereum.on('accountsChanged', handleAccountsChanged);
         window.ethereum.on('chainChanged', handleChainChanged);
+    }
+}
+
+// Show wallet connection required warning
+function showWalletRequired() {
+    document.getElementById('walletRequired').style.display = 'block';
+    document.getElementById('methodSelection').classList.add('disabled');
+}
+
+// Hide wallet connection required warning
+function hideWalletRequired() {
+    document.getElementById('walletRequired').style.display = 'none';
+    document.getElementById('methodSelection').classList.remove('disabled');
+}
+
+// Update wallet status in header
+function updateWalletStatus(connected, account = null) {
+    const headerButton = document.getElementById('headerConnectWallet');
+    const statusText = document.getElementById('walletStatusText');
+    
+    if (connected && account) {
+        headerButton.classList.add('connected');
+        statusText.textContent = `${account.slice(0, 6)}...${account.slice(-4)}`;
+        hideWalletRequired();
+    } else {
+        headerButton.classList.remove('connected');
+        statusText.textContent = 'Connect Wallet';
+        showWalletRequired();
     }
 }
 
@@ -76,6 +109,9 @@ async function connectWallet() {
         document.getElementById('connectWallet').innerHTML = '<i class="fas fa-check"></i> Connected';
         document.getElementById('connectWallet').style.background = '#4CAF50';
         
+        // Update header status
+        updateWalletStatus(true, userAccount);
+        
         // Update tweet content
         updateTweetContent();
         
@@ -88,10 +124,12 @@ async function connectWallet() {
         console.error('❌ Error connecting wallet:', error);
         
         if (error.code === 4001) {
-            alert('Please connect your wallet to continue');
+            showNotification('Please connect your wallet to continue', 'warning');
         } else {
-            alert('Error connecting wallet: ' + error.message);
+            showNotification('Error connecting wallet: ' + error.message, 'error');
         }
+        
+        updateWalletStatus(false);
     }
 }
 
@@ -157,6 +195,8 @@ function handleAccountsChanged(accounts) {
         document.getElementById('connectWallet').style.background = '';
         
         console.log('Wallet disconnected');
+        
+        updateWalletStatus(false);
     } else {
         // Account changed
         userAccount = accounts[0];
@@ -165,6 +205,8 @@ function handleAccountsChanged(accounts) {
         checkVerificationStatus();
         
         console.log('Account changed to:', userAccount);
+        
+        updateWalletStatus(true, userAccount);
     }
 }
 
@@ -228,7 +270,9 @@ function copyBioCode() {
 // Start verification process
 async function startVerification() {
     if (!contract || !userAccount) {
-        alert('Please connect your wallet first');
+        showNotification('Please connect your wallet first to start verification', 'warning');
+        // Scroll to top to show wallet connection
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
     }
     
@@ -240,26 +284,26 @@ async function startVerification() {
             twitterHandle = document.getElementById('twitterHandle').value.trim();
             
             if (!tweetUrl || !twitterHandle) {
-                alert('Please fill in all fields');
+                showNotification('Please fill in all fields', 'warning');
                 return;
             }
             
             // Extract tweet ID from URL
             tweetId = extractTweetId(tweetUrl);
             if (!tweetId) {
-                alert('Invalid tweet URL. Please use format: https://twitter.com/username/status/1234567890');
+                showNotification('Invalid tweet URL. Please use format: https://twitter.com/username/status/1234567890', 'error');
                 return;
             }
         } else {
             // Bio method
             twitterHandle = document.getElementById('twitterHandleBio').value.trim();
             if (!twitterHandle) {
-                alert('Please enter your Twitter handle');
+                showNotification('Please enter your Twitter handle', 'warning');
                 return;
             }
             
             // For bio method, we'll need to create a special tweet or use a different approach
-            alert('Bio verification is not implemented yet. Please use Tweet Verification.');
+            showNotification('Bio verification is not implemented yet. Please use Tweet Verification.', 'info');
             return;
         }
         
@@ -269,7 +313,7 @@ async function startVerification() {
         // Get Twitter user ID
         const twitterUserId = await getTwitterUserId(twitterHandle);
         if (!twitterUserId) {
-            alert(`Could not find Twitter user ID for @${twitterHandle}. Please check the handle and try again.`);
+            showNotification(`Could not find Twitter user ID for @${twitterHandle}. Please check the handle and try again.`, 'error');
             return;
         }
         
